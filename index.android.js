@@ -4,50 +4,90 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+'use strict';
+import React, {Component} from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+    AppRegistry,
+    Dimensions,
+    StyleSheet,
+    Text,
+    Alert,
+    TouchableHighlight,
+    View,
+    Button
 } from 'react-native';
+import Camera from 'react-native-camera';
 
-export default class cameraPrueba extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
-    );
-  }
+class BadInstagramCloneApp extends Component {
+    render() {
+        return (
+            <View style={styles.container}>
+                <Camera
+                    ref={(cam) => {
+                        this.camera = cam;
+                    }}
+                    style={styles.preview}
+                    aspect={Camera.constants.Aspect.fill}>
+                    <View style={styles.cUno}></View>
+                    <Button onPress={this.takePicture.bind(this)} title={'TOMA LA FOTO'}/>
+
+                </Camera>
+            </View>
+        );
+    }
+
+    takePicture() {
+        const options = {};
+        //options.location = ...
+        this.camera.capture({metadata: options})
+            .then((data) => console.log(data))
+            .catch(err => console.error(err));
+    }
+}
+
+//var objCam = new BadInstagramCloneApp();
+
+class primera extends Component {
+    fnCam() {
+        Alert.alert('test');
+    };
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Button title={'CAMARA'} onPress={this.fnCam}/>
+            </View>
+
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    cUno: {
+
+        backgroundColor: '#ff0022',
+        width: 200,
+        height: 100,
+        position: 'absolute',
+        top: 10,
+    },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    capture: {
+        flex: 0,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        color: '#000',
+        padding: 10,
+        margin: 40
+    }
 });
 
-AppRegistry.registerComponent('cameraPrueba', () => cameraPrueba);
+AppRegistry.registerComponent('cameraPrueba', () => primera);
