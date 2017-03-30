@@ -47,7 +47,7 @@ class BadInstagramCloneApp extends Component {
 //var objCam = new BadInstagramCloneApp();
 
 class primera extends Component {
-    
+
     render() {
         return (
             <View style={styles.container}>
